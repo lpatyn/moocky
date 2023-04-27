@@ -1,21 +1,17 @@
 require('dotenv').config();
-const { Client, IntentsBitField } = require('discord.js');
-
-const client = new Client({
-    intents: [
-        IntentsBitField.Flags.Guilds,
-        IntentsBitField.Flags.GuildMembers,
-        IntentsBitField.Flags.GuildMessages,
-        IntentsBitField.Flags.MessageContent,
-    ]
-});
+const client = require('../resources/client');
+const channels = require('../resources/channels');
 
 client.on('ready', (c) => {
     console.log(`Psst, ${c.user.username}'s online.`)
 });
 
-client.on('guildMemberAdd', (member) => {
-    member.send('Bienvenido, gato')
-})
+client.on('messageCreate', (message) => {
+    if (message.author.bot) return;
+
+    const welcomeChannel = client.channels.cache.get(channels.welcome);
+    welcomeChannel.send(`Que onda, ${message.author.username}`);
+
+});
 
 client.login(process.env.TOKEN);
