@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
-    welcome: '1100923532994695281'
+    welcome: process.env.WELCOME_CHANNEL_ID
 }
