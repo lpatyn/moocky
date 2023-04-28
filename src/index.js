@@ -11,7 +11,7 @@ client.on('ready', (c) => {
 client.on('guildMemberAdd', (member) => {
     const welcomeChannel = client.channels.cache.get(channels.welcome);
 
-    welcomeChannel.send(`Bienvenid@, ${member.user.username}!`);
+    welcomeChannel.send(`Bienvenid@, ${member.user}!`);
 })
 
 client.on('messageCreate', (message) => {
@@ -20,10 +20,10 @@ client.on('messageCreate', (message) => {
 
     switch (message.content) {
         case '!hola':
-            reply = prompts.hola.replace('%NAME%', message.author.username);
+            reply = prompts.hola.replace('%NAME%', message.author);
             break;
         case '!adios':
-            reply = prompts.adios.replace('%NAME%', message.author.username);
+            reply = prompts.adios.replace('%NAME%', message.author);
             break;
         case '!nihongo':
             reply = prompts.nihongo;
@@ -33,7 +33,7 @@ client.on('messageCreate', (message) => {
             break;
     };
 
-    message.channel.send(reply);
+    message.reply(reply);
 
 });
 
